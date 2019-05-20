@@ -10,54 +10,50 @@
     <script>
     function myF() {
      var t="Paragraph changed!";
-     if(navigator.geolocation){
+if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(function(position){ 
     var url= "https://fcc-weather-api.glitch.me/api/current?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
       
-       $.getJSON(url, function(data) {
-        $("#temp").html(data.name+", "+data.sys.country+" <mu>"+ data.weather[0].description+"</mu>");
-           $("#minutely").html(data.main.temp+"°C ");
-        $("#minutely").html(data.main.temp*9/5+32+"°F")
-          $("#two").addClass("mus");
-          $("#one").removeClass("mus");        
-   if(data.weather[0].description=="clouds"){
-     $("#outside").css("background","red");   
-   }
-   else if(data.weather[0].description=="clear sky"){
-     $("#outside").css("background","yellow");
-   }
-   else if(data.weather[0].description.indexOf("rain")!== -1){
-     $("#outside").css("background","navy");   
-   }
+    $.getJSON(url, function(data) {
+      $("#temp").html(data.name+", "+data.sys.country+" <mu>"+ data.weather[0].description+"</mu>");
+      $("#minutely").html(data.main.temp+"°C ");
+      $("#minutely").html(data.main.temp*9/5+32+"°F")
+      $("#two").addClass("mus");
+      $("#one").removeClass("mus");        
+          
+      if(data.weather[0].description=="clouds"){
+        $("#outside").css("background","red");   
       }
-    );   
+      else if(data.weather[0].description=="clear sky"){
+        $("#outside").css("background","yellow");
+      }
+      else if(data.weather[0].description.indexOf("rain")!== -1){
+        $("#outside").css("background","navy");   
+      }
+    });   
       
-      document.getElementById('answer').innerHTML="latitude: "+ position.coords.latitude+"<br>longitude: "+position.coords.longitude;
-    })
-  }
-  else{
-      document.getElementById('minutely').innerHTML="Unable to detect your location";    
-  }
-
+    document.getElementById('answer').innerHTML="latitude: "+ position.coords.latitude+"<br>longitude: "+position.coords.longitude;
+  })
+}
+else{
+  document.getElementById('minutely').innerHTML="Unable to detect your location";    
 }
 
-function myF2() {
-  if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(function(position){
-        
+    }
+
+    function myF2() {
+if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(function(position){    
     var url= "https://fcc-weather-api.glitch.me/api/current?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
-      
-       $.getJSON(url, function(data) {
- $("#minutely").html(data.main.temp+"°C ");
-          $("#one").addClass("mus");
-          $("#two").removeClass("mus");
-      }
-    );           
-                
-      })
     
-  }
+    $.getJSON(url, function(data) {
+      $("#minutely").html(data.main.temp+"°C ");
+      $("#one").addClass("mus");
+      $("#two").removeClass("mus");
+    });                       
+  })    
 }
+    }
 
     </script>
   <link rel="stylesheet" href="/style.css">  
