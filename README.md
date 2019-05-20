@@ -66,21 +66,6 @@ if(navigator.geolocation){
 ---
 
 ## Installation
-
-
-### Setup
-
-
->  install npm package
-
-```shell
-$ npm install
-```
-
-- For all of the packages used, refer to the package.json file [here](/package.json).
-
----
-
 ## Features
 ## Usage (Optional)
 ## Documentation (Optional)
