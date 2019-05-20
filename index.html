@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/weather/0.0.2/weather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/open-weather/2.0.0/openweather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+    <script>
+    function myF() {
+     var t="Paragraph changed!";
+     if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(function(position){ 
+    var url= "https://fcc-weather-api.glitch.me/api/current?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+      
+       $.getJSON(url, function(data) {
+        $("#temp").html(data.name+", "+data.sys.country+" <mu>"+ data.weather[0].description+"</mu>");
+           $("#minutely").html(data.main.temp+"°C ");
+        $("#minutely").html(data.main.temp*9/5+32+"°F")
+          $("#two").addClass("mus");
+          $("#one").removeClass("mus");        
+   if(data.weather[0].description=="clouds"){
+     $("#outside").css("background","red");   
+   }
+   else if(data.weather[0].description=="clear sky"){
+     $("#outside").css("background","yellow");
+   }
+   else if(data.weather[0].description.indexOf("rain")!== -1){
+     $("#outside").css("background","navy");   
+   }
+      }
+    );   
+      
+      document.getElementById('answer').innerHTML="latitude: "+ position.coords.latitude+"<br>longitude: "+position.coords.longitude;
+    })
+  }
+  else{
+      document.getElementById('minutely').innerHTML="Unable to detect your location";    
+  }
+
+}
+
+function myF2() {
+  if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(function(position){
+        
+    var url= "https://fcc-weather-api.glitch.me/api/current?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+      
+       $.getJSON(url, function(data) {
+ $("#minutely").html(data.main.temp+"°C ");
+          $("#one").addClass("mus");
+          $("#two").removeClass("mus");
+      }
+    );           
+                
+      })
+    
+  }
+}
+
+    </script>
+  <link rel="stylesheet" href="/style.css">  
+  </head>
+  <body onload="myF()">
+    <i class="fa fa-cloud clouds clouds1"></i>
+    <i class="fa fa-sun-o clouds clouds2"></i>
+    <i class="fa fa-umbrella clouds clouds3"></i>
+
+    <div id="outside">
+      <div id="inside">
+        <p id="weather" style="font-family: calibri"><strong>Current Weather</strong></p>
+        <p id="minutely"></p>
+        <p id="temp"></p> 
+        <p id="answer"></p>
+        <button id="one" onclick="myF2()">Change to Celsius</button>
+        <button id="two" class="mus" onclick="myF()">Change to Fahrenheit</button>
+      </div>
+    </div>
+    
+  </body>
+</html>
